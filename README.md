@@ -42,4 +42,15 @@ password = config['DEFAULT']['PASSWORD']
 
 The better solution will be to put the secrets in [HashiCorp Vault](https://www.vaultproject.io/) or any other secret vault. 
 
+---
 
+#### Run Alembic Database upgrade scripts
+If you would like to run Alembic upgrade scripts from your machine and your database is in Azure. You can modify the `alembic.ini` file to have the connection   
+
+`sqlalchemy.url = mysql+pymysql://username:password@yourserver.database.azure.com/dbname`
+
+`env.py` reads the connection string from `alembic.ini` file using:  
+`url = config.get_main_option("sqlalchemy.url")`
+
+You can change the url to get read the db `sqlalchemy.url` from `config.json` file instead
+to read from the config file (have a look at app.py to see how this can be done)
